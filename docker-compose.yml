@@ -1,0 +1,15 @@
+services:
+  privatemode-proxy:
+    image: ghcr.io/edgelesssys/privatemode/privatemode-proxy:latest
+    environment:
+      - PRIVATEMODE_API_KEY=${PRIVATEMODE_API_KEY:-}
+      - PRIVATEMODE_CACHE_MODE=${PRIVATEMODE_CACHE_MODE:-none}
+      - PRIVATEMODE_CACHE_SALT=${PRIVATEMODE_CACHE_SALT:-}
+    entrypoint: ["/bin/privatemode-proxy"]
+    command: [
+      "--apiKey=${PRIVATEMODE_API_KEY}",
+      "--port=8080"
+    ]
+    ports:
+      - "28082:8080"
+    restart: unless-stopped
